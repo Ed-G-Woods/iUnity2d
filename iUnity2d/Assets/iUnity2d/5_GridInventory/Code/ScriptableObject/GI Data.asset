@@ -11,6 +11,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 763015d0b96c84b4e83022c34f8eba4e, type: 3}
   m_Name: GI Data
   m_EditorClassIdentifier: 
-  CellSize: 40
-  CellSpace: 40
-  CellDefaultColor: {r: 0.8584906, g: 0.8584906, b: 0.8584906, a: 1}
+  CellSize: 64
+  CellSpace: 64
+  CellDefaultColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}

@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GIManager : MonoBehaviour {
+public class GridManager : MonoBehaviour {
     
     public short GridNumX = 10;
     public short GridNumY = 15;
     public CellState CurrentCell = null;
+    public GIManager _GIManager;
 
     [SerializeField] private So_GIData GIData;
     [SerializeField] private GameObject GridCellPerfab;
@@ -15,25 +16,22 @@ public class GIManager : MonoBehaviour {
 
     private void Awake()
     {
+        //获取GIManager
+        if (_GIManager == null)
+        {
+            _GIManager = GetComponentInParent<GIManager>();
+        }
+        //生成cells
         for (int y=0; y< GridNumY; y++)
         {
             for (int x=0; x< GridNumX; x++)
             {
-                Vector2Int CellPos_Cell =new Vector2Int(x,y);
+                Vector2Int CellPos_Cell =new Vector2Int(x,y); //调整这里的xy正负即可控制生成的方向//也要调整之后各种检查的顺序
                 SpawnCell(CellPos_Cell);
             }
         }
     }
-    
-    void Start ()
-    {
-		
-	}
-	void Update ()
-    {
-		
-	}
-
+    //生成Cell
     void SpawnCell(Vector2Int cellPosition)
     {
         GameObject GridCell = Instantiate<GameObject>(GridCellPerfab);
@@ -48,7 +46,7 @@ public class GIManager : MonoBehaviour {
         CellState CCellstate = GridCell.GetComponent<CellState>();
         CCellstate.CellPos = cellPosition;
         CCellstate.SetColor(GIData.CellDefaultColor);
-        CCellstate.gridInventoryManager = this;
+        CCellstate._GridManager = this;
 
         RectTransform CellRectTransform = GridCell.GetComponent<RectTransform>();
         CellRectTransform.sizeDelta = new Vector2(GIData.CellSize, GIData.CellSize);

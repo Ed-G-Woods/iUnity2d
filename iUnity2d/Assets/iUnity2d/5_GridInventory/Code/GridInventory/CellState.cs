@@ -9,7 +9,7 @@ public class CellState : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Vector2Int CellPos;
     public bool isFree = true;
 
-    public GIManager gridInventoryManager;
+    public GridManager _GridManager;
 
     private UnityEngine.UI.Image _CellImage;
 
@@ -24,11 +24,11 @@ public class CellState : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
 
     public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
     {
-        gridInventoryManager.CurrentCell = this;
+        _GridManager.CurrentCell = this;
     }
     public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
     {
-        gridInventoryManager.CurrentCell = null;
+        _GridManager.CurrentCell = null;
     }
 
     public void SetColor(Color newColor)
