@@ -31,19 +31,17 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     private void Awake()
     {
         _ItemRect = gameObject.GetComponent<RectTransform>();
-        _ItemRect.sizeDelta = new Vector2(ItemSizeX * GIData.CellSpace, ItemSizeY * GIData.CellSpace);
 
         _ItemImage = gameObject.GetComponent<UnityEngine.UI.Image>();
-
-
+        
         _GIManager = GameObject.Find("GridInventoryManager").GetComponent<GIManager>();
         _GridManager = _GIManager._GridManager;
         _InventoryManager = _GIManager._InventroryManager;
     }
 
     void Start () {
-
-	}
+        _ItemRect.sizeDelta = new Vector2(ItemSizeX * GIData.CellSpace, ItemSizeY * GIData.CellSpace);
+    }
 	void Update () {
         if (isSelect)
         {
@@ -65,6 +63,11 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 
         }
 	}
+
+    public void setItemImage(Sprite s)
+    {
+        _ItemImage.sprite = s;
+    }
 
     void HandleUIEvenet()
     {

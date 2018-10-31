@@ -58,16 +58,6 @@ public class GridManager : MonoBehaviour {
 
     private void Start()
     {
-        Dictionary<string, int> a = new Dictionary<string, int>();
-        a.Add("a", 1);
-        a.Add("s", 2);
-        a.Add("d", 3);
-        a.Add("f", 4);
-        //a.Add("a", 5);
-        //a.ContainsKey("d");
-        Debug.Log(a.ContainsKey("d"));
-        Debug.Log(a.ContainsKey("w"));
-        Debug.Log(a["a"]);
     }
 
     ///~~~~~~~~~~~~

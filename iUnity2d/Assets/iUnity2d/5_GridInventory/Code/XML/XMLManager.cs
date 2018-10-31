@@ -7,22 +7,28 @@ using System.Xml.Serialization;
 using System.IO;
 
 public class XMLManager : MonoBehaviour {
+    public static XMLManager getXMLManager = null;
 
     public ItemDatabase ItemDB;
 
     private void Awake()
     {
-        
+        getXMLManager = this;
+    }
+    private void Start()
+    {
+        LoadXML();
+        //SaveXML();
     }
 
-    public void saveXML()
+    public void SaveXML()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
         FileStream stream = new FileStream(Application.dataPath + "/iUnity2d/6_XMLStudy/XMLFolder/ItemDB.xml", FileMode.Create);
         serializer.Serialize(stream, ItemDB);
         stream.Close();
     }
-    public void loadXML()
+    public void LoadXML()
     {
         XmlSerializer serializer = new XmlSerializer(typeof(ItemDatabase));
         FileStream stream = new FileStream(Application.dataPath + "/iUnity2d/6_XMLStudy/XMLFolder/ItemDB.xml", FileMode.Open);
@@ -34,17 +40,17 @@ public class XMLManager : MonoBehaviour {
 [System.Serializable]
 public class ItemDatabase
 {
-    public List<ItemEntry> list = new List<ItemEntry>();
-    public int aNumber;
+    /*public Dictionary<string, ItemEntry> ItemDirectory = new Dictionary<string, ItemEntry>();*/
+    public List<ItemEntry> itemDataList = new List<ItemEntry>();
 }
 
 [System.Serializable]
 public class ItemEntry
 {
     public string name;
-    public int x;
-    public int y;
-    public Level level;
+    public short ItemSizeX;
+    public short ItemSizeY;
+    //public Level level;
     /*public UnityEngine.UI.Image image;*/
 }
 

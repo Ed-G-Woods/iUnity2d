@@ -1,30 +1,25 @@
 <?xml version="1.0" encoding="gb2312"?>
 <ItemDatabase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <list>
+  <itemDataList>
     <ItemEntry>
-      <name>Banana</name>
-      <x>2</x>
-      <y>1</y>
-      <level>Laji</level>
+      <name>SmallPotion</name>
+      <ItemSizeX>1</ItemSizeX>
+      <ItemSizeY>1</ItemSizeY>
     </ItemEntry>
     <ItemEntry>
-      <name>Sword</name>
-      <x>2</x>
-      <y>5</y>
-      <level>rare</level>
+      <name>BigPotion</name>
+      <ItemSizeX>1</ItemSizeX>
+      <ItemSizeY>2</ItemSizeY>
     </ItemEntry>
     <ItemEntry>
-      <name>Shoes</name>
-      <x>2</x>
-      <y>2</y>
-      <level>normal</level>
+      <name>GreatSword</name>
+      <ItemSizeX>2</ItemSizeX>
+      <ItemSizeY>7</ItemSizeY>
     </ItemEntry>
     <ItemEntry>
-      <name>FakePussy</name>
-      <x>1</x>
-      <y>2</y>
-      <level>legend</level>
+      <name>Dagger</name>
+      <ItemSizeX>1</ItemSizeX>
+      <ItemSizeY>2</ItemSizeY>
     </ItemEntry>
-  </list>
-  <aNumber>19990313</aNumber>
+  </itemDataList>
 </ItemDatabase>
