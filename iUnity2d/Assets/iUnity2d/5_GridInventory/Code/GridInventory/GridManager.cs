@@ -26,7 +26,7 @@ public class GridManager : MonoBehaviour {
         {
             for (int x=0; x< GridNumX; x++)
             {
-                Vector2Int CellPos_Cell =new Vector2Int(x,y); //调整这里的xy正负即可控制生成的方向//也要调整之后各种检查的顺序
+                Vector2Int CellPos_Cell =new Vector2Int(x,-y); //调整这里的xy正负即可控制生成的方向
                 SpawnCell(CellPos_Cell);
             }
         }
@@ -56,6 +56,19 @@ public class GridManager : MonoBehaviour {
         Cells.Add(cellPosition, GridCell);
     }
 
+    private void Start()
+    {
+        Dictionary<string, int> a = new Dictionary<string, int>();
+        a.Add("a", 1);
+        a.Add("s", 2);
+        a.Add("d", 3);
+        a.Add("f", 4);
+        //a.Add("a", 5);
+        //a.ContainsKey("d");
+        Debug.Log(a.ContainsKey("d"));
+        Debug.Log(a.ContainsKey("w"));
+        Debug.Log(a["a"]);
+    }
 
     ///~~~~~~~~~~~~
     /// 检查，锁定，解锁,变色 Cell or Cells
@@ -122,16 +135,10 @@ public class GridManager : MonoBehaviour {
             for (int x = LB_Cell.x; x <= RT_Cell.x; x++)
             {
                 Vector2Int cellPos = new Vector2Int(x, y);
+                if (!Cells.ContainsKey(cellPos)) continue;  //如果key不在Dictionary里
                 GameObject cell = null;
-                if (x>GridNumX-1||y>GridNumY-1)
-                {
-                    continue;
-                }
                 cell = Cells[cellPos];
-                if (!cell.GetComponent<CellState>().isFree)
-                {
-                    continue;
-                }
+                if (!cell.GetComponent<CellState>().isFree) continue;  //如果cell已被占用
                 cell.GetComponent<CellState>().SetColor(newcolor);
                 
             }
