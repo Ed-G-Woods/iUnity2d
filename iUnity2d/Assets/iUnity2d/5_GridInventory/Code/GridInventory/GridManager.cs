@@ -9,7 +9,7 @@ public class GridManager : MonoBehaviour {
     public CellState CurrentCell = null;
     public GIManager _GIManager;
 
-    [SerializeField] private So_GIData GIData;
+    public So_GIData GIData;
     [SerializeField] private GameObject GridCellPerfab;
 
     private Dictionary<Vector2Int, GameObject> Cells = new Dictionary<Vector2Int, GameObject>();
