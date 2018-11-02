@@ -25,6 +25,7 @@ public class CellState : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
     {
         _GridManager.CurrentCell = this;
+        _GridManager._GIManager._GridManager = _GridManager;
     }
     public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
     {

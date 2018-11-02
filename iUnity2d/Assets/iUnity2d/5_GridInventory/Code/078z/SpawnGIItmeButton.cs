@@ -10,7 +10,7 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
 
     [SerializeField] private Items item = Items.SmallPotion;
     [SerializeField] private GameObject GIItemPerfab;
-    [SerializeField] private InventoryManager _InventoryManager;
+    private InventoryManager _InventoryManager;
 
     private UnityEngine.UI.Image _image;
     private string itemName;
@@ -18,6 +18,15 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
     private void Awake()
     {
         _image = GetComponent<UnityEngine.UI.Image>();
+
+        GameObject g = GameObject.Find("GridInventoryManager");
+        if (g == null)
+        {
+            g = GameObject.FindGameObjectWithTag("GIManager");
+        }
+        _InventoryManager = g.GetComponent<GIManager>()._InventroryManager;
+
+
     }
     void Start () {
         itemName = item.ToString();
