@@ -10,8 +10,8 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
 
     [SerializeField] private Items item = Items.SmallPotion;
     [SerializeField] private GameObject GIItemPerfab;
-    private InventoryManager _InventoryManager;
 
+    private GIManager _GIManager;
     private UnityEngine.UI.Image _image;
     private string itemName;
 
@@ -19,18 +19,12 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
     {
         _image = GetComponent<UnityEngine.UI.Image>();
 
-        GameObject g = GameObject.Find("GridInventoryManager");
-        if (g == null)
-        {
-            g = GameObject.FindGameObjectWithTag("GIManager");
-        }
-        _InventoryManager = g.GetComponent<GIManager>()._InventroryManager;
-
-
+        
     }
     void Start () {
         itemName = item.ToString();
-	}
+        _GIManager = GIManager.GgetGIManager;
+    }
 	void Update () {
 	}
 
@@ -41,16 +35,15 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
 
     void SpawnGIItem()
     {
-        if (_InventoryManager.isHaveSelect) return;
+        if (_GIManager._GISelected.isHaveSelected) return;
 
         GameObject item = Instantiate<GameObject>(GIItemPerfab);
-        
-        item.transform.SetParent(_InventoryManager.transform);
+
+        item.transform.SetParent(_GIManager._GISelected.transform);
         item.transform.localScale = Vector3.one;
 
         GIItem itemGIItem = item.GetComponent<GIItem>();
         setItemData(itemGIItem);
-
         itemGIItem.StartMove();
     }
 

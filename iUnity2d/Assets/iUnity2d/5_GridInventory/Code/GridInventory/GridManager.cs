@@ -7,7 +7,6 @@ public class GridManager : MonoBehaviour {
     public short GridNumX = 10;
     public short GridNumY = 15;
     public CellState CurrentCell = null;
-    public GIManager _GIManager;
 
     public So_GIData GIData;
     [SerializeField] private GameObject GridCellPerfab;
@@ -16,11 +15,6 @@ public class GridManager : MonoBehaviour {
 
     private void Awake()
     {
-        //获取GIManager
-        if (_GIManager == null)
-        {
-            _GIManager = GetComponentInParent<GIManager>();
-        }
         //生成cells
         for (int y=0; y< GridNumY; y++)
         {

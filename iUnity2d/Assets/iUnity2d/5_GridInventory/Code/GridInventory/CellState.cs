@@ -9,13 +9,12 @@ public class CellState : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public Vector2Int CellPos;
     public bool isFree = true;
 
-    public GridManager _GridManager;
+    public GridManager _GridManager;    //在生成cell的时候 赋值了。
 
     private UnityEngine.UI.Image _CellImage;
 
     private void Awake()
     {
-        //gridInventoryManager = gameObject.GetComponentInParent<GIManager>();
         _CellImage = gameObject.GetComponent<UnityEngine.UI.Image>();
     }
 
@@ -25,7 +24,6 @@ public class CellState : MonoBehaviour, IPointerEnterHandler, IPointerExitHandle
     public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
     {
         _GridManager.CurrentCell = this;
-        _GridManager._GIManager._GridManager = _GridManager; //TODO:这里增加了与GIManager的耦合，需要改进。
     }
     public void OnPointerExit(UnityEngine.EventSystems.PointerEventData eventData)
     {

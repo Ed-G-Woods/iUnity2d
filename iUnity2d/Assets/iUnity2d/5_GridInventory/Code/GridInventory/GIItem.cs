@@ -16,15 +16,13 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     public Color HighlightColor=Color.yellow;
     public Color PressColor=Color.blue;
 
-    private bool isSelect;
+    private bool isMoving;
     private List<Vector2Int> CellsOccupied = new List<Vector2Int>();
-
-
-    //private GridManager _GridManager;
-    private InventoryManager _InventoryManager;
-
+    
     private RectTransform _ItemRect;
     private UnityEngine.UI.Image _ItemImage;
+
+    private InventoryManager _InventoryManager=null;//用来判断item的inventory（是不是从一个_Inventory移到了另一个_Inventory？）
 
     private GIManager _GIManager;
 
@@ -33,24 +31,24 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         _ItemRect = gameObject.GetComponent<RectTransform>();
 
         _ItemImage = gameObject.GetComponent<UnityEngine.UI.Image>();
-
-        //_GIManager = GameObject.Find("GridInventoryManager").GetComponent<GIManager>();
-        GameObject g = GameObject.Find("GridInventoryManager");
-        if (g == null)
+        
+        _GIManager = GIManager.GgetGIManager;
+        if (_GIManager ==null)
         {
-            g = GameObject.FindGameObjectWithTag("GIManager");
+            GameObject g = GameObject.Find("GridInventoryManager");
+            if (g == null)
+            {
+                g = GameObject.FindGameObjectWithTag("GIManager");
+            }
+            _GIManager = g.GetComponent<GIManager>();
         }
-        _GIManager = g.GetComponent<GIManager>();
-
-
-        _InventoryManager = _GIManager._InventroryManager;
     }
 
     void Start () {
         _ItemRect.sizeDelta = new Vector2(ItemSizeX * GIData.CellSpace, ItemSizeY * GIData.CellSpace);
     }
 	void Update () {
-        if (isSelect)
+        if (isMoving)
         {
             MoveItem();
             _GIManager._GridManager.ResetColorInFreecells();
@@ -129,16 +127,20 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     {
         if (/*CheakCanFinish()*/true)       
         {
-            _InventoryManager.isHaveSelect = false;
-            isSelect = false;
-            _ItemImage.raycastTarget = true;
+            _GIManager._GISelected.isHaveSelected = false;  //全局isHaveSelected
+            isMoving = false;   //本地isMoving
+            _ItemImage.raycastTarget = true;    //设置遮挡
+            
+            transform.SetParent(_GIManager._InventroryManager.transform);
+            BetweenInventory();
 
+            //set最后结束的位置
             Vector3 NewItemPosition = _GIManager._GridManager.CurrentCell.transform.position;
             float realsize = _GIManager._GridManager.getRealCellSize();
             NewItemPosition.x += (realsize * ItemSizeX / 2) - (realsize / 2);
             NewItemPosition.y += (realsize * ItemSizeY / 2) - (realsize / 2);
-
             transform.position = NewItemPosition;
+           //-set最后结束的位置
 
             OccupyCell(true);
 
@@ -148,16 +150,18 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     //开始移动Inventory，由OnPointerClick触发
     public void StartMove()
     {
-        if (_InventoryManager.isHaveSelect) return; //是否已经有在移动的物体了
+        if (_GIManager._GISelected.isHaveSelected) return; //全局isHaveSelected 是否已经有在移动的物体了
 
         if (CellsOccupied.Count !=0)
         {
             OccupyCell(false);
         }
+        
+        transform.SetParent(_GIManager._GISelected.transform);
 
-        _InventoryManager.isHaveSelect = true;
-        isSelect = true;
-        _ItemImage.raycastTarget = false;
+        _GIManager._GISelected.isHaveSelected = true;   //全局isHaveSelected
+        isMoving = true;    //本地isMoving
+        _ItemImage.raycastTarget = false;   ////设置遮挡
 
         transform.SetAsLastSibling();//渲染顺序（显示前后）
     }
@@ -203,6 +207,18 @@ public class GIItem : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         transform.position = NewItemPosition;
     }
 
-    
+    void BetweenInventory()
+    {
+        bool isSameInv = _InventoryManager == GIManager.GgetGIManager._InventroryManager;
+        if (!isSameInv)
+        {
+            
+            string namebefore = _InventoryManager == null ? "Null" : _InventoryManager.ToString();
+            string nameafter = GIManager.GgetGIManager._InventroryManager == null ? "Null" : GIManager.GgetGIManager._InventroryManager.ToString();
+            Debug.Log("Move from " + namebefore+" to " + nameafter+" .");
+
+            _InventoryManager = GIManager.GgetGIManager._InventroryManager;
+        }
+    }
 
 }
