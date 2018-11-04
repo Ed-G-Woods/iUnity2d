@@ -144,9 +144,7 @@ public class GridManager : MonoBehaviour {
             }
         }
     }
-
-
-
+    
     //获取真实的Cell大小，像素
     public float getRealCellSize()
     {

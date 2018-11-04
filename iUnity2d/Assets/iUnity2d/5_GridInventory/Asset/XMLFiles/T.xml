@@ -1,0 +1,7 @@
+<RootElement>
+  <Element1 ID="100">
+    <Element2 ID="110">A Text dont know what to do</Element2>
+    <Element3 ID="120">Ooo,I'm making game!!</Element3>
+  </Element1>
+  <NewElement Name="NewnewnewE">This is a new element</NewElement>
+</RootElement>

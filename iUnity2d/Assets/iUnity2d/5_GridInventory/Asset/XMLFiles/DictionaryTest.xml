@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="gb2312"?>
+<ArrayOfKeyValuePairOfStringInt32>
+  <KeyValuePairOfStringInt32>
+    <Key>aaa</Key>
+    <Value>111</Value>
+  </KeyValuePairOfStringInt32>
+  <KeyValuePairOfStringInt32>
+    <Key>bbb</Key>
+    <Value>222</Value>
+  </KeyValuePairOfStringInt32>
+</ArrayOfKeyValuePairOfStringInt32>

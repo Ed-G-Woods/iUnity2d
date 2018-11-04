@@ -13,4 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CellSize: 64
   CellSpace: 64
-  CellDefaultColor: {r: 0.1981132, g: 0.1981132, b: 0.1981132, a: 1}
+  CellDefaultColor: {r: 0.35609993, g: 0.3281862, b: 0.5566038, a: 1}

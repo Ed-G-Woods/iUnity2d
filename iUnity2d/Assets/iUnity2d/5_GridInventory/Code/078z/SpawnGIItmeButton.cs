@@ -4,29 +4,23 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 
-public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
+public class SpawnGIItmeButton : MonoBehaviour, IPointerClickHandler
 {
-    
 
-    [SerializeField] private Items item = Items.SmallPotion;
+
+    public Items item = Items.SmallPotion;
     [SerializeField] private GameObject GIItemPerfab;
-
-    private GIManager _GIManager;
+    
     private UnityEngine.UI.Image _image;
     private string itemName;
 
     private void Awake()
     {
         _image = GetComponent<UnityEngine.UI.Image>();
-
-        
     }
     void Start () {
         itemName = item.ToString();
-        _GIManager = GIManager.GgetGIManager;
     }
-	void Update () {
-	}
 
     public void OnPointerClick(UnityEngine.EventSystems.PointerEventData eventData)
     {
@@ -35,6 +29,10 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
 
     void SpawnGIItem()
     {
+
+        GIManager _GIManager = GIManager.GgetGIManager;
+        if (_GIManager == null) return;
+
         if (_GIManager._GISelected.isHaveSelected) return;
 
         GameObject item = Instantiate<GameObject>(GIItemPerfab);
@@ -49,12 +47,13 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
 
     private void setItemData(GIItem _item)
     {
-        ItemDatabase idb = XMLManager.getXMLManager.ItemDB;
+        ItemDatabase idb = XMLManager.GgetXMLManager.ItemDB;
 
         foreach (ItemEntry i in idb.itemDataList)
         {
             if (i.name == itemName)
             {
+                _item.gameObject.name = i.name;
                 _item.ItemName = i.name;
                 _item.ItemSizeX = i.ItemSizeX;
                 _item.ItemSizeY = i.ItemSizeY;
@@ -63,12 +62,4 @@ public class SpawnGIItmeButton : MonoBehaviour,IPointerClickHandler
             }
         }
     }
-}
-
-public enum Items
-{
-    SmallPotion,
-    BigPotion,
-    GreatSword,
-    Dagger
 }

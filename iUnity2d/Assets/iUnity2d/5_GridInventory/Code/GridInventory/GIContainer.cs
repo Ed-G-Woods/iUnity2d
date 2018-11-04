@@ -14,6 +14,16 @@ public class GIContainer : MonoBehaviour,IPointerEnterHandler, IPointerExitHandl
         RectTransform _rect = GetComponent<RectTransform>();
         _rect.sizeDelta = size;
     }
+    public void ContainerSetup()
+    {
+        float x = _GridManager.GridNumX * _GridManager.GIData.CellSpace;
+        float y = _GridManager.GridNumY * _GridManager.GIData.CellSpace;
+        Vector2 newsize = new Vector2(x, y);
+        setSize(newsize);
+
+        RectTransform _GridMGRect = _GridManager.GetComponent<RectTransform>();
+        _GridMGRect.anchoredPosition = new Vector2(_GridManager.GIData.CellSpace / 2, -(_GridManager.GIData.CellSpace / 2));
+    }
 
     private void Awake()
     {
@@ -22,13 +32,7 @@ public class GIContainer : MonoBehaviour,IPointerEnterHandler, IPointerExitHandl
     }
 
     void Start () {
-        float x = _GridManager.GridNumX * _GridManager.GIData.CellSpace;
-        float y = _GridManager.GridNumY * _GridManager.GIData.CellSpace;
-        Vector2 newsize = new Vector2(x, y);
-        setSize(newsize);
-
-        RectTransform _GridMGRect = _GridManager.GetComponent<RectTransform>();
-        _GridMGRect.anchoredPosition = new Vector2(_GridManager.GIData.CellSpace / 2, -(_GridManager.GIData.CellSpace / 2));
+        ContainerSetup();
     }
 
     public void OnPointerEnter(UnityEngine.EventSystems.PointerEventData eventData)
